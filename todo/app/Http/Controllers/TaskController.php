@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Tasks;
+use Illuminate\Support\Facades\Auth;
 class TaskController extends Controller
 {
     /**
@@ -33,14 +34,10 @@ class TaskController extends Controller
         //
         $title = $request->input('title');
         $description = $request->input('description');
-        
-        // $task_id = $request->input('task_id');
         $Tasks=new Tasks();
         $Tasks->title=$title;
         $Tasks->description=$description;
-        
-        // $Tasks->task_id=$task_id;
-        // $Tasks->user_id=Auth::id();
+        $Tasks->user_id=Auth::id();
         $Tasks->save();
         return redirect()->route('tasks.index');
     }
